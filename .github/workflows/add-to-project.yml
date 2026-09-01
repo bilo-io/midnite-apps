@@ -4,10 +4,15 @@ name: Add issues to the board
 # by its `app:` label.
 #
 # This is the *optional* half of board automation. The board is user-owned, which is outside this
-# repository, and the built-in GITHUB_TOKEN cannot write to it — so this job stays dormant until
-# both a PROJECT_URL variable and a PROJECTS_TOKEN secret exist. If you'd rather not mint a PAT,
-# enable the board's own built-in "Auto-add to project" workflow instead (Project → ⋯ → Workflows)
-# and leave this disabled; see docs/adding-an-app.md.
+# repository, and the built-in GITHUB_TOKEN cannot write to it — so this job stays dormant until a
+# PROJECT_URL variable and a PROJECTS_TOKEN secret exist. If you'd rather not mint a PAT, enable
+# the board's own built-in "Auto-add to project" workflow instead (Project → ⋯ → Workflows) and
+# leave this disabled; see docs/adding-an-app.md.
+#
+# The guard tests only the variable, deliberately: `secrets` is not one of the contexts a
+# job-level `if` can read (only `github`, `needs`, `vars` and `inputs` are), and referencing it
+# here does not evaluate false — it makes the whole workflow unparseable, which GitHub reports
+# only by listing it under its filename instead of its name. Set both, or neither.
 
 on:
   issues:
@@ -16,7 +21,7 @@ on:
 jobs:
   add:
     runs-on: ubuntu-latest
-    if: ${{ vars.PROJECT_URL != '' && secrets.PROJECTS_TOKEN != '' }}
+    if: ${{ vars.PROJECT_URL != '' }}
     steps:
       - uses: actions/add-to-project@v1
         with:
