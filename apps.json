@@ -1,0 +1,20 @@
+{
+  "$comment": "The registry every workflow and doc in this repo reads. Adding an app means adding an entry here and a directory named for its `id`. See docs/adding-an-app.md.",
+  "apps": [
+    {
+      "id": "midnite-studio",
+      "name": "Midnite Studio",
+      "tagline": "A desktop workspace around a repository — git client, terminal, agents, embedded browser and forge.",
+      "source": "bilo-io/midnite-studio",
+      "tagPrefix": "midnite-studio/v",
+      "bundle": "Midnite Studio.app",
+      "platforms": ["macos-arm64"],
+      "artifacts": {
+        "zip": "midnite-studio-${version}-arm64.zip",
+        "dmg": "midnite-studio-${version}-arm64.dmg"
+      },
+      "installer": "midnite-studio/install.sh",
+      "versionEnvVar": "MIDNITE_STUDIO_VERSION"
+    }
+  ]
+}

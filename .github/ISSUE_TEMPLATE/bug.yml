@@ -1,0 +1,65 @@
+name: Bug report
+description: Something in a midnite app isn't working
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: app
+    attributes:
+      label: App
+      description: >-
+        Which app is this about? The answer becomes the issue's `app:` label — it is what puts
+        the issue on the right board view, so it is worth getting right.
+      options:
+        - midnite-studio
+        - Something else / not sure
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The version you're running, from the app's About window.
+      placeholder: "0.3.1"
+    validations:
+      required: false
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The shortest path you know of that triggers it.
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Errors or logs
+      description: >-
+        Anything from the app's console or a crash dialog. This is automatically formatted as
+        code — no backticks needed.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: macOS version
+      placeholder: "15.2 (Apple Silicon)"
+    validations:
+      required: false

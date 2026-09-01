@@ -1,0 +1,81 @@
+name: Update release feed
+
+# Keeps each app's version.json in step with its releases.
+#
+# This repo distributes several apps, so tags are namespaced (`midnite-studio/v0.3.1`) and
+# `releases/latest` means "the newest release of any app here" — useless to an installer that
+# wants one specific app. Each app's version.json is the answer instead, and hand-maintaining it
+# would mean every release is one forgotten commit away from shipping a stale "latest".
+
+on:
+  release:
+    types: [published, edited]
+
+permissions:
+  contents: write
+
+# Two releases published close together would otherwise race on the same push.
+concurrency:
+  group: release-feed
+  cancel-in-progress: false
+
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Rewrite the app's version.json
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          NOTES_URL: ${{ github.event.release.html_url }}
+          PUBLISHED_AT: ${{ github.event.release.published_at }}
+          PRERELEASE: ${{ github.event.release.prerelease }}
+        run: |
+          set -euo pipefail
+
+          case "$TAG" in
+            */v*) ;;
+            *)
+              echo "::notice::tag '$TAG' is not <app>/v<version> — no feed to update"
+              exit 0
+              ;;
+          esac
+
+          app="${TAG%%/*}"
+          version="${TAG#*/v}"
+
+          if ! jq -e --arg a "$app" '.apps[] | select(.id == $a)' apps.json >/dev/null; then
+            echo "::warning::'$app' is not registered in apps.json — leaving the feed alone"
+            exit 0
+          fi
+
+          # Prereleases are real releases with real assets, but they are not what a default
+          # install should pick up, and this feed is the stable channel.
+          if [ "$PRERELEASE" = "true" ]; then
+            echo "::notice::$TAG is a prerelease — the stable feed is unchanged"
+            exit 0
+          fi
+
+          feed="$app/version.json"
+          jq -n \
+            --arg app "$app" \
+            --arg version "$version" \
+            --arg releasedAt "$PUBLISHED_AT" \
+            --arg notesUrl "$NOTES_URL" \
+            '{app: $app, channel: "stable", version: $version, releasedAt: $releasedAt, notesUrl: $notesUrl}' \
+            > "$feed.tmp"
+          mv "$feed.tmp" "$feed"
+
+          if git diff --quiet -- "$feed"; then
+            echo "::notice::$feed is already current at $version"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$feed"
+          git commit -m "chore($app): point version.json at $version"
+          git push

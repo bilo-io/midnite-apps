@@ -1,0 +1,74 @@
+name: Label issues by app
+
+# Every issue here belongs to exactly one app, and that has to be recorded as a label rather
+# than left in prose: the board's per-app views filter on `app: <id>`, so an unlabelled issue is
+# an invisible one. The issue forms ask for the app in a required dropdown; this reads the answer
+# back out and applies the label, so the reporter never has to know the label scheme exists.
+#
+# Runs on edits too, so changing the dropdown on an existing issue moves it between views.
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // apps.json is the registry — adding an app must not mean editing this workflow.
+            const { apps } = JSON.parse(fs.readFileSync('apps.json', 'utf8'));
+            const ids = apps.map((a) => a.id);
+
+            // Issue forms render a dropdown as an `### App` heading followed by the answer.
+            // Scanned line by line rather than matched with one regex: the blank-line count
+            // between heading and answer is not something to depend on.
+            const lines = (context.payload.issue.body || '').split(/\r?\n/);
+            const heading = lines.findIndex((l) => /^###\s+App\s*$/.test(l.trim()));
+            let answer = null;
+            for (let i = heading + 1; heading !== -1 && i < lines.length; i++) {
+              const line = lines[i].trim();
+              if (!line) continue;
+              if (line.startsWith('###')) break;
+              answer = line;
+              break;
+            }
+
+            // Anything we can't place — "Something else / not sure", a blank form field, or an
+            // issue opened through the API without the form — gets triaged by hand rather than
+            // guessed at.
+            const picked = ids.includes(answer) ? answer : null;
+            const want = picked ? `app: ${picked}` : 'needs-triage';
+
+            // Only ever touch labels this workflow owns; `bug`, `size/M` and friends are the
+            // maintainer's to set.
+            const managed = new Set([...ids.map((id) => `app: ${id}`), 'needs-triage']);
+            const current = context.payload.issue.labels.map((l) => l.name);
+
+            for (const name of current.filter((n) => managed.has(n) && n !== want)) {
+              await github.rest.issues.removeLabel({
+                ...context.repo,
+                issue_number: context.issue.number,
+                name,
+              }).catch(() => {}); // Raced with a manual removal — not worth failing the run.
+            }
+
+            if (!current.includes(want)) {
+              await github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: context.issue.number,
+                labels: [want],
+              });
+            }
+
+            core.info(`App answer: ${answer ?? '(none)'} → label: ${want}`);

@@ -1,0 +1,10 @@
+# Blank issues stay off: the App dropdown in the two forms is what applies the `app:` label,
+# and a blank issue would arrive with nothing to route it by.
+blank_issues_enabled: false
+contact_links:
+  - name: Midnite Studio — downloads and install
+    url: https://github.com/bilo-io/midnite-apps/tree/main/midnite-studio
+    about: Installer, release notes and the update feed.
+  - name: midnite (the Claude Code orchestrator)
+    url: https://github.com/bilo-io/midnite-app/issues
+    about: The midnite app is tracked in its own repo — please file it there, not here.

@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest something a midnite app should do
+title: "[feat] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: app
+    attributes:
+      label: App
+      description: >-
+        Which app is this for? The answer becomes the issue's `app:` label — it is what puts the
+        issue on the right board view, so it is worth getting right.
+      options:
+        - midnite-studio
+        - Something else / not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's the problem?
+      description: >-
+        The situation you're in when you want this, rather than the solution — it usually leads
+        somewhere better than the first idea does.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like it to do?
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What do you do instead today?
+      description: The workaround, if you have one, and where it falls down.
+    validations:
+      required: false
