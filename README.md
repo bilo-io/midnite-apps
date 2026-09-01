@@ -26,7 +26,8 @@ midnite-apps/
 │   ├── README.md             install instructions for that app
 │   ├── CHANGELOG.md          that app's release notes
 │   ├── install.sh            the curl … | sh installer
-│   └── version.json          update feed — what "latest stable" means for that app
+│   ├── version.json          what "latest stable" means — the installer reads this
+│   └── feed/                 latest-mac.yml — what the in-app updater reads
 └── .github/
     ├── ISSUE_TEMPLATE/       one App dropdown, fed from apps.json
     └── workflows/            app labelling + release-feed maintenance
@@ -50,6 +51,11 @@ here means "the newest release of *any* app", which is not what an installer wan
 [`version.json`](midnite-studio/version.json) is the authoritative "latest stable" for that app,
 and [`release-feed.yml`](.github/workflows/release-feed.yml) rewrites it automatically whenever a
 release is published. Installers read that file, never `releases/latest`.
+
+The same ambiguity is why an app that auto-updates uses electron-updater's **`generic`** provider
+against its own [`feed/`](midnite-studio/feed/) directory rather than the GitHub provider, which
+resolves its manifest through that very endpoint. So a release moves **two** feeds — `version.json`
+for the installer, `feed/latest-mac.yml` for the running app — and only the first is automatic.
 
 ## Issues
 

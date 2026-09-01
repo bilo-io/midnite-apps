@@ -114,14 +114,29 @@ argument, only `updateProjectV2View` does. Both need a token with the `project` 
 
 In the app's own (private) repo:
 
-- **`electron-builder.yml`** — `publish.owner: bilo-io`, `publish.repo: midnite-apps`.
-- **The release flow** — cut the GitHub Release here, against a namespaced tag
-  (`midnite-forge/v1.2.3`), attaching the `.zip` and `.dmg`, and copy the released changelog
-  section into `midnite-forge/CHANGELOG.md`.
+- **`electron-builder.yml`** — if the app auto-updates, point it at that app's feed directory
+  using the **`generic`** provider:
 
-Publishing that release is all it takes from then on:
-[`release-feed.yml`](../.github/workflows/release-feed.yml) sees the tag, recognises the app from
-`apps.json`, and rewrites `midnite-forge/version.json` so the installer resolves the new version.
+  ```yaml
+  publish:
+    - provider: generic
+      url: https://raw.githubusercontent.com/bilo-io/midnite-apps/main/midnite-forge/feed
+      channel: latest
+  ```
+
+  Not `provider: github`. Its GitHub provider resolves the manifest through `releases/latest`,
+  which in this repo is whichever app shipped most recently — it would serve your app another
+  app's update. Create `midnite-forge/feed/` here to receive `latest-mac.yml`; copy
+  [midnite-studio's](../midnite-studio/feed/README.md) as the pattern.
+
+- **The release flow** — cut the GitHub Release here against a namespaced tag
+  (`midnite-forge/v1.2.3`), attach the `.zip` and `.dmg`, copy the released changelog section
+  into `midnite-forge/CHANGELOG.md`, and commit `latest-mac.yml` into `midnite-forge/feed/`.
+
+[`release-feed.yml`](../.github/workflows/release-feed.yml) then sees the tag, recognises the app
+from `apps.json`, and rewrites `midnite-forge/version.json` so the installer resolves the new
+version. **`latest-mac.yml` is not automatic** — the two feeds must be moved together, or the
+installer and the in-app updater disagree about what "latest" is.
 
 ## Board automation, once
 
