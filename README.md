@@ -72,10 +72,19 @@ File everything here — one tracker for every app, with the app itself recorded
 
 ### Board
 
-Every issue lands on the **[midnite apps](https://github.com/users/bilo-io/projects)** project
-board, which carries one saved view per app (filtered on that app's label) alongside an
-all-apps view and a triage view. A new app gets a new view; the board itself does not change
-shape.
+Issues are tracked on the **[midnite apps](https://github.com/users/bilo-io/projects/6)** project
+board, which carries one saved view per app alongside a cross-app view and a triage view:
+
+| View | Filter |
+| --- | --- |
+| **All apps** | `is:open` |
+| **Midnite Studio** | `is:open label:"app: midnite-studio"` |
+| **Triage** | `is:open label:needs-triage` |
+
+The views filter on the labels the issue forms apply, so a new app is a new view and the board
+itself never changes shape. Adding issues to the board is
+[configured separately](docs/adding-an-app.md#board-automation-once) — a user-owned board is
+outside this repository, and the built-in `GITHUB_TOKEN` cannot write to it.
 
 ## Repository conventions
 

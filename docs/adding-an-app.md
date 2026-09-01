@@ -88,7 +88,7 @@ answer against `apps.json` regardless, so a dropdown option you forget to regist
 
 ```sh
 PROJECT_ID=$(gh api graphql -f query='
-  query { user(login: "bilo-io") { projectV2(number: <N>) { id } } }
+  query { user(login: "bilo-io") { projectV2(number: 6) { id } } }
 ' --jq '.data.user.projectV2.id')
 
 VIEW_ID=$(gh api graphql -f query='
@@ -103,12 +103,14 @@ gh api graphql -f query='
   mutation($v: ID!, $f: String!) {
     updateProjectV2View(input: {viewId: $v, filter: $f}) { projectV2View { id name filter } }
   }
-' -f v="$VIEW_ID" -f f='label:"app: midnite-forge"'
+' -f v="$VIEW_ID" -f f='is:open label:"app: midnite-forge"'
 ```
 
-The filter is set in a second call on purpose — `createProjectV2View` takes no `filter`
+The filter is set in a **second** call on purpose — `createProjectV2View` takes no `filter`
 argument, only `updateProjectV2View` does. Both need a token with the `project` scope
-(`gh auth refresh -h github.com -s project`).
+(`gh auth refresh -h github.com -s project,read:project`); note that the device flow authorises
+whichever account **the browser** is signed into, not the one `gh` names, so sign in as
+`bilo-io` (a private window is the easy way) before pasting the code.
 
 ## 6 · Point the source repo at this one
 
@@ -140,17 +142,20 @@ installer and the in-app updater disagree about what "latest" is.
 
 ## Board automation, once
 
-Not per-app — do this once for the repo, if you want new issues added to the board
-automatically. Either:
+Not per-app — done once for the repo, and **not done yet**. The board exists and its views are
+filtered correctly, but nothing puts issues *onto* it automatically: a user-owned project lives
+outside this repository, and Actions' built-in `GITHUB_TOKEN` has no write access to it. Until
+one of these is set up, issues have to be added to the board by hand.
 
-- **Built-in (no token):** on the project, **⋯ → Workflows → Auto-add to project**, filter
-  `is:issue is:open repo:bilo-io/midnite-apps`. Enable and you're done.
-- **In code:** create a PAT with the `project` scope, then
+- **Built-in, no token — the easy one.** On the [project](https://github.com/users/bilo-io/projects/6),
+  **⋯ → Workflows → Auto-add to project**, filter `is:issue is:open repo:bilo-io/midnite-apps`,
+  Enable. There is no API to turn this on, which is the only reason it isn't already done.
+- **In code.** [`add-to-project.yml`](../.github/workflows/add-to-project.yml) does the same job
+  and is already wired to the board — `PROJECT_URL` is set. It waits on the one thing that has to
+  be minted by hand:
 
   ```sh
-  gh secret   set PROJECTS_TOKEN --repo bilo-io/midnite-apps --body '<pat>'
-  gh variable set PROJECT_URL    --repo bilo-io/midnite-apps --body 'https://github.com/users/bilo-io/projects/<N>'
+  gh secret set PROJECTS_TOKEN --repo bilo-io/midnite-apps --body '<a PAT with the project scope>'
   ```
 
-  which is what [`add-to-project.yml`](../.github/workflows/add-to-project.yml) waits for. It
-  stays dormant until both exist.
+  Pick this over the built-in only if you want the automation reviewable in git.
