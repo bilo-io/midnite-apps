@@ -1,0 +1,97 @@
+# The early-access request form.
+#
+# Reached almost entirely from the Midnite Studio marketing site, whose
+# early-access section has no backend by design: it composes this form's fields
+# into an `issues/new?template=early-access.yml&…` URL, shows the visitor the
+# exact text, and opens it in a new tab so they file it themselves under their
+# own account. Nothing is sent from the page and no key sits in it.
+#
+# **The field `id`s below are the query-parameter names that site sends.** They
+# are `email`, `use-case` and `agents`, and they are the same list written twice
+# — once here and once in `composeIssueUrl` in the site's source. Renaming one
+# here without renaming it there produces an issue with that answer missing and
+# no error anywhere, because GitHub drops a prefill parameter it does not
+# recognise silently.
+
+name: Early access request
+description: Ask for an early-access build of Midnite Studio.
+title: 'Early access: '
+labels: ['early-access']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for asking. This issue is **public** — including the address you
+        put in it. If you would rather not publish an address, say so in the
+        third box and leave the first one as a throwaway; the request still
+        counts.
+
+  # One option, preselected, and it is not here to ask the reporter anything —
+  # every request through this form is about Midnite Studio, and the site that
+  # sends them says so in the title prefix already.
+  #
+  # It is here because `.github/workflows/issue-app-label.yml` reads the app out
+  # of the issue *body*, by finding an `### App` heading and taking the line
+  # under it. An issue with no such heading gets `needs-triage` — and the
+  # workflow owns that label, so declaring `app: midnite-studio` under `labels:`
+  # above would not survive: the run strips any managed label that is not the
+  # one it decided on. A dropdown is the only thing that puts the answer where
+  # the workflow looks, so this field is what keeps early-access requests on the
+  # Studio board view instead of in the triage pile.
+  - type: dropdown
+    id: app
+    attributes:
+      label: App
+      description: Early access is for Midnite Studio.
+      options:
+        - midnite-studio
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      description: Where the build link should go.
+      placeholder: you@example.com
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What would you point it at?
+      description: >
+        A repo, a workflow, a thing you do by hand today. The more specific the
+        more it shapes what ships next.
+      placeholder: A monorepo with four agents running at once, mostly reviewing each other's PRs.
+    validations:
+      required: false
+
+  - type: textarea
+    id: agents
+    attributes:
+      label: Agents you use
+      description: >
+        Comma-separated. The site's form fills this from its own chips — Claude,
+        Antigravity, Codex, Cursor, Copilot, OpenClaude, OpenCode, Kilo Code,
+        Aider, Cline — but write anything, including one that is not on that
+        list.
+      placeholder: Claude, Codex
+    validations:
+      required: false
+
+  # Deliberately a free-text field rather than a `checkboxes` block. An issue
+  # form's checkbox options are a list maintained *in this file*, in a different
+  # repo from the app's own agent roster — so the day an eleventh agent ships,
+  # the form would quietly be the only place that has not heard about it. A text
+  # field the site prefills cannot go stale that way, and someone filing the
+  # issue by hand can name a tool we have never shipped support for, which is
+  # itself the useful signal.
+
+  - type: markdown
+    attributes:
+      value: |
+        Anything else — what you would need before you would use it daily, what
+        would stop you — is welcome as a comment under this issue.
