@@ -1,7 +1,7 @@
 {
   "app": "midnite-studio",
   "channel": "stable",
-  "version": null,
-  "releasedAt": null,
-  "notesUrl": null
+  "version": "0.0.1",
+  "releasedAt": "2026-09-11T14:41:14Z",
+  "notesUrl": "https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.1"
 }
