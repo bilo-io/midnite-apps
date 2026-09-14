@@ -12,4 +12,18 @@ publishes a `midnite-studio/vX.Y.Z` tag here.
 
 Pre-release. Nothing has shipped publicly yet — the first tagged build will appear here.
 
+## [0.0.1] - 2026-09-14
+
+### Added
+- GitKraken-inspired git graph with lanes, commit inspector, ref badges, and interactive graph actions.
+- Integrated terminal broker with session persistence across window reloads and detached execution.
+- Agent roster with automated execution, real-time activity feeds, and model/session configuration.
+- Embedded web browser with multi-tab browsing, split view, and devtools integration.
+- Forge integration for GitHub pull requests, checks, reviews, and status tracking.
+- System health and doctor setup with automatic toolchain detection for Homebrew, Node.js, pnpm, and Moon.
+- Disk usage and system resource monitor with RAG status indicators and flyout telemetry.
+- User-level skills management option accessible via the Midnite menu.
+- Full two-pane Notes manager with Monaco code editor, Markdown preview, and persistent disk storage.
+
 [Unreleased]: https://github.com/bilo-io/midnite-apps/commits/main/midnite-studio
+[0.0.1]: https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.1
