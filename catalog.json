@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "runtimeVersion": "0.0.1",
+  "apps": [
+    {
+      "id": "studio",
+      "version": "0.0.1",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-studio/v0.0.1/midnite-studio-0.0.1-arm64.zip",
+      "size": 273962734,
+      "sha256": "b456f6535972eddef030a39e8f83dfdb23a6d4d40a1ea6c51e9e30284a56d3f9",
+      "minimumRuntimeVersion": "0.0.1",
+      "releasedAt": "2026-10-15T12:07:04Z"
+    },
+    {
+      "id": "cleaner",
+      "version": "0.0.1",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.1/midnite-cleaner-0.0.1-bundle.zip",
+      "size": 742041,
+      "sha256": "0901500f75628dd7f1dbfd3d023e84544bb8cecbb675c6cd8a3b1489df9e9c01",
+      "minimumRuntimeVersion": "0.0.1",
+      "releasedAt": "2026-10-15T12:07:04Z"
+    }
+  ]
+}
