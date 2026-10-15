@@ -9,6 +9,7 @@ and somewhere to report bugs.
 | App | What it is | Install | Open issues |
 | --- | --- | --- | --- |
 | [**Midnite Studio**](midnite-studio/) | A desktop workspace around a repository — git client, terminal, agents, embedded browser and forge | [`install.sh`](midnite-studio/#install) | [`app: midnite-studio`](https://github.com/bilo-io/midnite-apps/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+midnite-studio%22) |
+| [**Midnite Apps**](midnite-launcher/) | The launcher — lists, installs, updates and opens every midnite app | [`install.sh`](midnite-launcher/#install) | [`app: midnite-launcher`](https://github.com/bilo-io/midnite-apps/issues?q=is%3Aissue+is%3Aopen+label%3A%22app%3A+midnite-launcher%22) |
 
 > **midnite** — the Claude Code multitask orchestrator — is still served from its own repo,
 > [bilo-io/midnite-app](https://github.com/bilo-io/midnite-app). Its published `curl … | sh`

@@ -8,13 +8,32 @@
       "source": "bilo-io/midnite-studio",
       "tagPrefix": "midnite-studio/v",
       "bundle": "Midnite Studio.app",
-      "platforms": ["macos-arm64"],
+      "platforms": [
+        "macos-arm64"
+      ],
       "artifacts": {
         "zip": "midnite-studio-${version}-arm64.zip",
         "dmg": "midnite-studio-${version}-arm64.dmg"
       },
       "installer": "midnite-studio/install.sh",
       "versionEnvVar": "MIDNITE_STUDIO_VERSION"
+    },
+    {
+      "id": "midnite-launcher",
+      "name": "Midnite Apps",
+      "tagline": "The launcher: lists, installs, updates and opens every midnite app.",
+      "source": "bilo-io/midnite-studio",
+      "tagPrefix": "midnite-launcher/v",
+      "bundle": "Midnite Apps.app",
+      "platforms": [
+        "macos-arm64"
+      ],
+      "artifacts": {
+        "zip": "midnite-launcher-${version}-arm64.zip",
+        "dmg": "midnite-launcher-${version}-arm64.dmg"
+      },
+      "installer": "midnite-launcher/install.sh",
+      "versionEnvVar": "MIDNITE_LAUNCHER_VERSION"
     }
   ]
 }

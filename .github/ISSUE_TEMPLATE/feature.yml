@@ -12,6 +12,7 @@ body:
         issue on the right board view, so it is worth getting right.
       options:
         - midnite-studio
+        - midnite-launcher
         - Something else / not sure
     validations:
       required: true
