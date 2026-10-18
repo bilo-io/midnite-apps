@@ -1,11 +1,11 @@
-version: 0.0.1
+version: 0.0.2
 files:
-  - url: midnite-studio-0.0.1-arm64.zip
-    sha512: mhUYklcW+0geQSYQPo56ymdlSyYeVA4Zn2ZxffVeP1BRoBBfMllTlLocu4QhAT5wCRFg1gHZ6TDns+XNV7gcUA==
-    size: 274160267
-  - url: midnite-studio-0.0.1-arm64.dmg
-    sha512: eC2PHXfm02pqnC/VdGLovXHX3ofUg0p7XT41w4gwuiM064XoGjx+2GqMAPP6vd1eAc14TFAroLNpmC1mKJL/ug==
-    size: 282324143
-path: midnite-studio-0.0.1-arm64.zip
-sha512: mhUYklcW+0geQSYQPo56ymdlSyYeVA4Zn2ZxffVeP1BRoBBfMllTlLocu4QhAT5wCRFg1gHZ6TDns+XNV7gcUA==
-releaseDate: '2026-10-18T09:40:51.574Z'
+  - url: midnite-studio-0.0.2-arm64.zip
+    sha512: I6sfV6TE3XBRl0/w/lev2hwyzYUpIvcjBCHDBTJ6ZiIEze9aqrhCWhr/qHwOgPPHA+o6aUzV6szo7bOs8mxw7g==
+    size: 274483868
+  - url: midnite-studio-0.0.2-arm64.dmg
+    sha512: 8/0iF1JBoGOOxcyhtZgTczRoqrZtevKn7JNKAAmh0OCLckAROI2VI9FLdVSRCu1Xs2QcxN7j2DGo3v2845r2/g==
+    size: 282970005
+path: midnite-studio-0.0.2-arm64.zip
+sha512: I6sfV6TE3XBRl0/w/lev2hwyzYUpIvcjBCHDBTJ6ZiIEze9aqrhCWhr/qHwOgPPHA+o6aUzV6szo7bOs8mxw7g==
+releaseDate: '2026-10-18T21:51:01.571Z'
