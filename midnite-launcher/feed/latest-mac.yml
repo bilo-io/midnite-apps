@@ -1,11 +1,11 @@
 version: 0.0.1
 files:
   - url: midnite-launcher-0.0.1-arm64.zip
-    sha512: XDfgkD6hoa11NmVIM/1xOGQCnr+LjuizFP6Vb4rFrCEaVn+8rR0XRSSXM9WswFoHUGzPN+sWQa2QqIQyurBgrg==
-    size: 96026238
+    sha512: Je+1UC0x3NZ4BNvtBmuPU3L7uIv2h7UcS0TA1E0N0IfjNPRmRyv+x95g8JdF2Q8u3Y0ozLRUQXHHzgvK2XRepg==
+    size: 96026866
   - url: midnite-launcher-0.0.1-arm64.dmg
-    sha512: /QGhvqlWgaCdbmZiqcwqw0wwKD2LcHDKuoIdv0Hme15j/8wdBv/Cx/SXAXbV2ShKkgpdkjmKh8uGv8Beg4TFbg==
-    size: 99943997
+    sha512: JE7lzr3YvjEpL5cjzFIHLgF1s2akGKlid+zP+zBv/rzqQd94MHYaW0cZZL4WulwxLDNYqD4NffPLDtcNF8HJsQ==
+    size: 99940798
 path: midnite-launcher-0.0.1-arm64.zip
-sha512: XDfgkD6hoa11NmVIM/1xOGQCnr+LjuizFP6Vb4rFrCEaVn+8rR0XRSSXM9WswFoHUGzPN+sWQa2QqIQyurBgrg==
-releaseDate: '2026-10-15T12:02:09.421Z'
+sha512: Je+1UC0x3NZ4BNvtBmuPU3L7uIv2h7UcS0TA1E0N0IfjNPRmRyv+x95g8JdF2Q8u3Y0ozLRUQXHHzgvK2XRepg==
+releaseDate: '2026-10-18T09:42:01.596Z'
