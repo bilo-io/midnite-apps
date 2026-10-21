@@ -1,11 +1,11 @@
-version: 0.0.3
+version: 0.0.4
 files:
-  - url: midnite-studio-0.0.3-arm64.zip
-    sha512: OrQWP8xlrBUy6wCFnbR61fXstGaVgcFJ0fc490oILNT6qT0GnWP4o8TP8wLkFo8VVOXezpnjyKY1FDzAXJ2tuQ==
-    size: 265512497
-  - url: midnite-studio-0.0.3-arm64.dmg
-    sha512: /0pQfbGkzdlXjNUhDhOZ0SqOS9QQb0M+J9Gyl+dv3ymFh1m3EJL5HDwcKNfuzrXd3t1BMuiVG4X4a05kpGiM+Q==
-    size: 273555591
-path: midnite-studio-0.0.3-arm64.zip
-sha512: OrQWP8xlrBUy6wCFnbR61fXstGaVgcFJ0fc490oILNT6qT0GnWP4o8TP8wLkFo8VVOXezpnjyKY1FDzAXJ2tuQ==
-releaseDate: '2026-10-21T07:49:28.440Z'
+  - url: midnite-studio-0.0.4-arm64.zip
+    sha512: FaFry6pBVw+HYXbogB7pQYkY1vHtOqEyeRvzk9ifOZrtVgjfl2uFjm+BJP76hFXrTOX5yUaKh1+Ii+p4MLS7LQ==
+    size: 268000028
+  - url: midnite-studio-0.0.4-arm64.dmg
+    sha512: pMyTSyJiKRYCBMnYMPw2LvRo0ib+w2CGsZBVU+fl6hqrgoia/Mk8yDogMy5ogCKzon5rHqEtvPJE7BoFl2Ijug==
+    size: 276174033
+path: midnite-studio-0.0.4-arm64.zip
+sha512: FaFry6pBVw+HYXbogB7pQYkY1vHtOqEyeRvzk9ifOZrtVgjfl2uFjm+BJP76hFXrTOX5yUaKh1+Ii+p4MLS7LQ==
+releaseDate: '2026-10-21T16:17:32.124Z'
