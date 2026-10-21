@@ -1,0 +1,75 @@
+name: Install smoke test
+
+# Installs every app's live release on a real Mac with the app's own install.sh, the same
+# `curl … | sh` a user runs, and fails unless it actually worked.
+#
+# v0.0.3 is why. Every unit check upstream passed, yet the installers refused every install:
+# Gatekeeper rejects an ad hoc signed build and the installers treated that as fatal; the launcher
+# zip had no sealed resources, so `codesign --verify` refused it too; a successful install exited 1
+# from its cleanup trap; and version.json carried no sha256, so the checksum step was skipped with
+# a warning. Each of those shows up here as a failure.
+#
+# Runs when an installer changes (PR and main), after release-feed.yml rewrites a version.json
+# (a new release), and on demand.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*/install.sh'
+      - '.github/workflows/install-smoke.yml'
+  pull_request:
+    paths:
+      - '*/install.sh'
+      - '.github/workflows/install-smoke.yml'
+  workflow_run:
+    workflows: ['Update release feed']
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: install-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: macos-14
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [midnite-studio, midnite-launcher]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the live release with ${{ matrix.app }}/install.sh
+        env:
+          APP: ${{ matrix.app }}
+        run: |
+          set -uo pipefail
+          entry=$(jq -c --arg a "$APP" '.apps[] | select(.id == $a)' apps.json)
+          bundle=$(jq -r '.bundle' <<<"$entry")
+          prefix=$(jq -r '.versionEnvVar' <<<"$entry")   # MIDNITE_STUDIO_VERSION
+          no_open="${prefix%_VERSION}_NO_OPEN"
+          # The installer reads version.json from main; on a PR that is still the live feed.
+          version=$(curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/$APP/version.json" | jq -r '.version')
+          echo "Installing $APP v$version ($bundle)"
+
+          env "$no_open=1" sh "$APP/install.sh" 2>&1 | tee install.log
+          status=${PIPESTATUS[0]}
+
+          problems=0
+          problem() { echo "::error::$1"; problems=$((problems + 1)); }
+          [ "$status" -eq 0 ] || problem "install.sh exited $status"
+          grep -q 'Verifying checksum' install.log || problem "the zip's checksum was not verified (no sha256 in $APP/version.json?)"
+          grep -q "v${version} installed" install.log || problem "install.sh did not report v$version installed"
+          if [ -d "/Applications/$bundle" ]; then
+            codesign --verify --deep --strict "/Applications/$bundle" || problem "the installed $bundle fails codesign --verify"
+            installed=$(defaults read "/Applications/$bundle/Contents/Info" CFBundleShortVersionString 2>/dev/null || echo none)
+            [ "$installed" = "$version" ] || problem "/Applications/$bundle is $installed, not $version"
+          else
+            problem "/Applications/$bundle does not exist"
+          fi
+          exit "$problems"

@@ -59,15 +59,25 @@ verify_bundle() {
 command -v curl >/dev/null 2>&1 || fail "curl is required."
 
 # ── Resolve version ──────────────────────────────────────────────────────────
+# Fetched best-effort even for a pinned version: it is also where the zip's digest lives.
+feed=$(curl -fsSL "$FEED" 2>/dev/null) || feed=""
 if [ -n "${MIDNITE_STUDIO_VERSION:-}" ]; then
   version="${MIDNITE_STUDIO_VERSION#v}"
 else
   # The per-app update feed. Parsed with sed rather than jq so the installer has
   # no dependency beyond curl — the file is generated, so its shape is stable.
-  feed=$(curl -fsSL "$FEED") || fail "could not reach github.com to resolve the latest version."
+  [ -n "$feed" ] || fail "could not reach github.com to resolve the latest version."
   version=$(printf '%s' "$feed" | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
   [ -n "$version" ] ||
     fail "Midnite Studio has no published release yet. Watch https://github.com/$REPO/releases for the first one."
+fi
+
+# The zip's sha256, from the same feed (Phase 91 Theme H). The feed describes one
+# version only, so a pinned install of a different version has no digest to check.
+feed_version=$(printf '%s' "$feed" | sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+expected_sha=""
+if [ "$feed_version" = "$version" ]; then
+  expected_sha=$(printf '%s' "$feed" | sed -n 's/.*"sha256"[[:space:]]*:[[:space:]]*"\([0-9a-fA-F]\{64\}\)".*/\1/p' | tr 'A-F' 'a-f')
 fi
 
 tag="midnite-studio/v${version}"
@@ -78,14 +88,30 @@ tmp=$(mktemp -d)
 staged="$DEST/.midnite-studio.new.$$"
 backup="$DEST/.midnite-studio.old.$$"
 # Best-effort cleanup of the temp dir and any staging leftovers on exit.
+# An if, not `[ … ] &&`: under `set -e` a false test as the trap's last command
+# becomes the script's exit status, so every successful install exited 1.
 cleanup() {
   rm -rf "$tmp" 2>/dev/null || true
-  [ -e "$staged" ] && { rm -rf "$staged" 2>/dev/null || sudo rm -rf "$staged" 2>/dev/null || true; }
+  if [ -e "$staged" ]; then
+    rm -rf "$staged" 2>/dev/null || sudo rm -rf "$staged" 2>/dev/null || true
+  fi
 }
 trap cleanup EXIT
 
 say "Downloading Midnite Studio v${version} …"
 curl -fL --progress-bar "$url" -o "$tmp/$asset" || fail "download failed: $url"
+
+# Integrity before anything reads the archive (Phase 91 Theme H): a truncated or
+# tampered zip stops here, not inside ditto.
+if [ -n "$expected_sha" ]; then
+  say "Verifying checksum …"
+  actual_sha=$(shasum -a 256 "$tmp/$asset" | cut -d' ' -f1)
+  [ "$actual_sha" = "$expected_sha" ] ||
+    fail "checksum mismatch for $asset (expected $expected_sha, got $actual_sha). Nothing was installed."
+  say "  sha256 $actual_sha"
+else
+  printf 'warning: the release feed carries no sha256 for v%s (an older release) — skipping checksum verification.\n' "$version" >&2
+fi
 
 # ditto (not unzip/cp) preserves the code-signing seal and extended attributes.
 ditto -xk "$tmp/$asset" "$tmp/extracted" || fail "could not extract $asset — the download may be corrupt. Re-run the installer."
@@ -96,6 +122,24 @@ ditto -xk "$tmp/$asset" "$tmp/extracted" || fail "could not extract $asset — t
 say "Verifying download …"
 verify_bundle "$tmp/extracted/$APP" ||
   fail "the downloaded app is incomplete (interrupted download?). Nothing was installed — re-run the installer."
+
+# Assess the signature BEFORE installing (Phase 91 Theme H). codesign --verify
+# catches a tampered or broken seal, and that refuses. spctl asks Gatekeeper
+# whether it would run the app; every build ships ad hoc signed until
+# notarisation lands, and Gatekeeper rejects all of those, so a rejection warns
+# rather than refuses — refusing would turn away every install of every release.
+# The sha256 above is what ties the zip to the release; spctl adds nothing to it
+# for an unnotarised build.
+say "Checking code signature …"
+codesign --verify --deep --strict "$tmp/extracted/$APP" 2>"$tmp/codesign.err" || {
+  cat "$tmp/codesign.err" >&2
+  fail "the app's code signature is invalid. Nothing was installed."
+}
+gatekeeper_ok=1
+if ! spctl --assess --type execute "$tmp/extracted/$APP" 2>/dev/null; then
+  gatekeeper_ok=0
+  say "warning: Gatekeeper rejects this build (signed ad hoc, not notarised). Its code signature is intact, so it is installed anyway." >&2
+fi
 
 # ── Install (staged + atomic) ────────────────────────────────────────────────
 # Quit a running copy so the bundle can be replaced (best-effort).
@@ -138,7 +182,9 @@ run rm -rf "$backup"
 
 # curl doesn't quarantine, but clear the bit defensively (e.g. re-runs over a
 # browser-downloaded copy). Best-effort: the attribute usually isn't there.
-run xattr -dr com.apple.quarantine "$DEST/$APP" 2>/dev/null || true
+# Only for a build codesign and Gatekeeper both passed: stripping it from one that
+# did not would hide exactly the refusal Gatekeeper should be making.
+[ "$gatekeeper_ok" = 1 ] && { run xattr -dr com.apple.quarantine "$DEST/$APP" 2>/dev/null || true; }
 
 say ""
 say "✓ Midnite Studio v${version} installed."
