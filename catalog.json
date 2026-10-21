@@ -1,123 +1,123 @@
 {
   "schemaVersion": 1,
-  "runtimeVersion": "0.0.2",
+  "runtimeVersion": "0.0.3",
   "apps": [
     {
       "id": "studio",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-studio/v0.0.2/midnite-studio-0.0.2-arm64.zip",
-      "size": 274483868,
-      "sha256": "64cdfc554c37af335627be44756bb9bdcf87d9551651ec203d0319485f388fd8",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-studio/v0.0.3/midnite-studio-0.0.3-arm64.zip",
+      "size": 265512497,
+      "sha256": "5479c7d70b6ae654aacad66031fd320efbf66dc5f7f342d110109d0b1faddbef",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "agents",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-agents-0.0.2-bundle.zip",
-      "size": 1385727,
-      "sha256": "d8fa7531e7a79187b703c14d6a66760215d3ee04316dcce90883a9c23de0f6c4",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-agents-0.0.3-bundle.zip",
+      "size": 1388953,
+      "sha256": "00ec218eebb810f5d03a265426d10ebd0c4285a01c39fcb33e04b14fd732462f",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "browser",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-browser-0.0.2-bundle.zip",
-      "size": 1092246,
-      "sha256": "fde4ab1cee265cbcb09a197dd4aeb9afd8c4f5e2643d33e058b9fcd1839356e4",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-browser-0.0.3-bundle.zip",
+      "size": 1094220,
+      "sha256": "4d9d68cc7bc3f90d3a1ee7502f26f046054bb4bf651e692db7ad3b40910a0bf7",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "capture",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-capture-0.0.2-bundle.zip",
-      "size": 1055962,
-      "sha256": "4c0235f849950e8b75293884bd6ea1af1390c5fde3808699a01343837b8ae3b2",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-capture-0.0.3-bundle.zip",
+      "size": 1058134,
+      "sha256": "ba1862c02ff00b9e22eb08c92c39f30746e4480949def90ff2d42dfec430846b",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "cleaner",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-cleaner-0.0.2-bundle.zip",
-      "size": 1059373,
-      "sha256": "a276a2e28464f656aa8592128aecd64ce42e349db1d5e3c49b56880c0fa81e00",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-cleaner-0.0.3-bundle.zip",
+      "size": 1061355,
+      "sha256": "1839ff427ea8d56d8296a082812309270ac02a81804de2b56e64dcf6373f7b09",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "coder",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-coder-0.0.2-bundle.zip",
-      "size": 2892996,
-      "sha256": "12594bc8f46e76183ca97a842856570dada819b370d3302ce0e322d7c6838d2f",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-coder-0.0.3-bundle.zip",
+      "size": 2896126,
+      "sha256": "c4119a073e40b76829ea5987338cb6bb0bf84266dba92865ca8cb8c4445a5e3a",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "creator",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-creator-0.0.2-bundle.zip",
-      "size": 1906230,
-      "sha256": "9ca6b9c91a4401a1fe282f1c36cfee0c82b52c7f454a7f62f091f7415d9c8f72",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-creator-0.0.3-bundle.zip",
+      "size": 1908888,
+      "sha256": "b56a21a9297b4d8539aa1c7e3b16dcc3ca4bc6a668f8d4c8b21a1ec4ae4bd48b",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "gamer",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-gamer-0.0.2-bundle.zip",
-      "size": 8336132,
-      "sha256": "58790b0ca2197d0c90a84d606497d4f48a8fb430f028ddeacf485596fab6f3e6",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-gamer-0.0.3-bundle.zip",
+      "size": 8342118,
+      "sha256": "200fcc35b783254e08e64c036c1546088816bbf3441d622cfa7ab9ee9f1616a1",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "media",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-media-0.0.2-bundle.zip",
-      "size": 1062666,
-      "sha256": "e780ae8fb36565911465ca626837a7599347213c8f5e7c426fd5842b48497ec5",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-media-0.0.3-bundle.zip",
+      "size": 1064573,
+      "sha256": "64afd95e25e4d86f86bf1314569affdb3c858dd2b8e04b03c3f304a2daa7731a",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "mind",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-mind-0.0.2-bundle.zip",
-      "size": 1171163,
-      "sha256": "2e0b69df58833a68e1a7b723b2604922049519291fbce7f4e95eb2594f30f4e7",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-mind-0.0.3-bundle.zip",
+      "size": 1173138,
+      "sha256": "3f3daa09a747054d5d227b7e99bc733df89688f84c3389f218b862d22056cb46",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "money",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-money-0.0.2-bundle.zip",
-      "size": 1136022,
-      "sha256": "201ae0228d3dd76375b94d651cc1b0f408ef701f885424bd92388ffd4a26edf7",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-money-0.0.3-bundle.zip",
+      "size": 1137920,
+      "sha256": "fa09fd80398e29e62fc04130934ac00ced7de1c6cf0086687783a4bff15cdd4d",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "monitor",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-monitor-0.0.2-bundle.zip",
-      "size": 939353,
-      "sha256": "554e169c152266ea6f560e011b9e202f4ef104718f0c82f8544256a1d5de78d6",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-monitor-0.0.3-bundle.zip",
+      "size": 941733,
+      "sha256": "d2b0216696db6df7778f853b6ad1d3e1d5380ff0a721111cf1664d7a8d28672a",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     },
     {
       "id": "vault",
-      "version": "0.0.2",
-      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.2/midnite-vault-0.0.2-bundle.zip",
-      "size": 1003647,
-      "sha256": "81ec1481e3db5a2407d7026ac98074fcd358283738442d78237e1cd47cc685b7",
-      "minimumRuntimeVersion": "0.0.2",
-      "releasedAt": "2026-10-18T21:56:20Z"
+      "version": "0.0.3",
+      "bundleUrl": "https://github.com/bilo-io/midnite-apps/releases/download/midnite-launcher/v0.0.3/midnite-vault-0.0.3-bundle.zip",
+      "size": 1005541,
+      "sha256": "d28989b644524f11a883a1599d803a3071fe1ea2590fbf3025fceb2116da756d",
+      "minimumRuntimeVersion": "0.0.3",
+      "releasedAt": "2026-10-21T07:54:06Z"
     }
   ]
 }
