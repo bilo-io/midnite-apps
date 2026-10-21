@@ -6,10 +6,21 @@ name: Update release feed
 # `releases/latest` means "the newest release of any app here" — useless to an installer that
 # wants one specific app. Each app's version.json is the answer instead, and hand-maintaining it
 # would mean every release is one forgotten commit away from shipping a stale "latest".
+#
+# The feed also carries the sha256 of the app's zip (apps.json `artifacts.zip`), which each
+# app's install.sh and the launcher check before extracting. It comes from the digest GitHub
+# records for every uploaded asset, so it covers apps whose release ships no SHA256SUMS too.
 
 on:
   release:
     types: [published, edited]
+  # Re-derive one release's feed by hand — e.g. to backfill the sha256 of a release published
+  # before this workflow wrote one.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag, e.g. midnite-studio/v0.0.3
+        required: true
 
 permissions:
   contents: write
@@ -29,10 +40,9 @@ jobs:
 
       - name: Rewrite the app's version.json
         env:
-          TAG: ${{ github.event.release.tag_name }}
-          NOTES_URL: ${{ github.event.release.html_url }}
-          PUBLISHED_AT: ${{ github.event.release.published_at }}
-          PRERELEASE: ${{ github.event.release.prerelease }}
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
 
@@ -52,20 +62,63 @@ jobs:
             exit 0
           fi
 
+          # Read the release from the API rather than the event payload, so a manual run and a
+          # release event see the same thing.
+          release=$(gh api "repos/$REPO/releases/tags/$TAG")
+
           # Prereleases are real releases with real assets, but they are not what a default
           # install should pick up, and this feed is the stable channel.
-          if [ "$PRERELEASE" = "true" ]; then
+          if [ "$(jq -r '.prerelease' <<<"$release")" = "true" ]; then
             echo "::notice::$TAG is a prerelease — the stable feed is unchanged"
             exit 0
           fi
 
+          # Never move the feed backwards: editing an older release's notes (or re-running this for
+          # one) would otherwise point every new install at that older version.
           feed="$app/version.json"
+          current=$(jq -r '.version // empty' "$feed" 2>/dev/null || true)
+          if [ -n "$current" ] && [ "$current" != "$version" ] &&
+            [ "$(printf '%s\n%s\n' "$current" "$version" | sort -V | tail -n1)" = "$current" ]; then
+            echo "::notice::$feed is at $current, newer than $TAG — leaving it alone"
+            exit 0
+          fi
+
+          # The zip's digest. A release can be published before its uploads finish, so wait a
+          # little for the asset; without one the feed still updates, and the installers warn
+          # and skip verification rather than refuse.
+          asset=$(jq -r --arg a "$app" '.apps[] | select(.id == $a) | .artifacts.zip // empty' apps.json)
+          asset="${asset//\$\{version\}/$version}"
+          sha256=""
+          if [ -n "$asset" ]; then
+            for _ in 1 2 3 4 5 6 7 8 9 10; do
+              digest=$(jq -r --arg n "$asset" \
+                '.assets[] | select(.name == $n and .state == "uploaded") | .digest // "none"' <<<"$release")
+              [ -n "$digest" ] && break
+              sleep 30
+              release=$(gh api "repos/$REPO/releases/tags/$TAG")
+            done
+            case "$digest" in
+              sha256:*) sha256="${digest#sha256:}" ;;
+              none)
+                # An asset uploaded before GitHub recorded digests: hash it ourselves.
+                gh release download "$TAG" --repo "$REPO" --pattern "$asset" --dir "$RUNNER_TEMP"
+                sha256=$(sha256sum "$RUNNER_TEMP/$asset" | cut -d' ' -f1)
+                ;;
+            esac
+            if ! grep -Eq '^[0-9a-f]{64}$' <<<"$sha256"; then
+              echo "::warning::no sha256 for $asset on $TAG — the feed goes out without one"
+              sha256=""
+            fi
+          fi
+
           jq -n \
             --arg app "$app" \
             --arg version "$version" \
-            --arg releasedAt "$PUBLISHED_AT" \
-            --arg notesUrl "$NOTES_URL" \
-            '{app: $app, channel: "stable", version: $version, releasedAt: $releasedAt, notesUrl: $notesUrl}' \
+            --arg releasedAt "$(jq -r '.published_at' <<<"$release")" \
+            --arg notesUrl "$(jq -r '.html_url' <<<"$release")" \
+            --arg sha256 "$sha256" \
+            '{app: $app, channel: "stable", version: $version, releasedAt: $releasedAt, notesUrl: $notesUrl}
+              + (if $sha256 == "" then {} else {sha256: $sha256} end)' \
             > "$feed.tmp"
           mv "$feed.tmp" "$feed"
 
