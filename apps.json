@@ -34,6 +34,102 @@
       },
       "installer": "midnite-launcher/install.sh",
       "versionEnvVar": "MIDNITE_LAUNCHER_VERSION"
+    },
+    {
+      "id": "midnite-agents",
+      "name": "Midnite Agents",
+      "tagline": "Chats with your agent CLIs, councils that answer together and local models, as their own app over the chats, councils and models features.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-browser",
+      "name": "Midnite Browser",
+      "tagline": "Full-window browsing, web apps, and agent-driven sessions, as their own app over the browser feature.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-capture",
+      "name": "Midnite Capture",
+      "tagline": "Screenshots, screen recordings and an opt-in clipboard history, kept on this machine, as its own app.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-cleaner",
+      "name": "Midnite Cleaner",
+      "tagline": "The workspace optimizer as its own app: scan memory, GPU and storage use and reclaim space.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-coder",
+      "name": "Midnite Coder",
+      "tagline": "Pull requests and reviews, CI runs, a repository's tests, its API collections and its databases, as their own app over the forge, tests, API client and Database features.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-creator",
+      "name": "Midnite Creator",
+      "tagline": "Docs and images (audio and video to follow), as their own app.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-gamer",
+      "name": "Midnite Gamer",
+      "tagline": "Maps, terrain, sprites, models and games, with play-tests and the game agent loop, as their own app.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-media",
+      "name": "Midnite Media",
+      "tagline": "A library of your own films, shows, music and photos, as its own app.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-mind",
+      "name": "Midnite Mind",
+      "tagline": "Notes you capture in a keystroke, as their own app.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-money",
+      "name": "Midnite Money",
+      "tagline": "Stocks, crypto and a simulated portfolio as their own app: a watchlist, markets, allocation and news, over the finance feature.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-monitor",
+      "name": "Midnite Monitor",
+      "tagline": "The machine monitor as its own app: CPU, memory, GPU, disk and battery, toolchain health and the crash log.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
+    },
+    {
+      "id": "midnite-vault",
+      "name": "Midnite Vault",
+      "tagline": "Stored secrets, forge accounts and database logins as their own app: set, rotate or remove, never read back.",
+      "source": "bilo-io/midnite-studio",
+      "kind": "bundle",
+      "bundledIn": "midnite-launcher"
     }
   ]
 }

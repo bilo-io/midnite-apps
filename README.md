@@ -90,7 +90,9 @@ outside this repository, and the built-in `GITHUB_TOKEN` cannot write to it.
 ## Repository conventions
 
 - **`apps.json` is the source of truth.** The issue-form dropdown, the labels, the release-feed
-  workflow and the docs all derive from it. Change it there and the rest follows.
+  workflow and the docs all derive from it. Change it there and the rest follows. It also lists
+  the launcher's bundle apps (`"kind": "bundle"`), which have no release of their own but still
+  need their issues labelled.
 - **Installers resolve versions from `version.json`,** never from `releases/latest` — see
   [Releases](#releases).
 - **Nothing here is built.** This repo holds distribution artifacts and text; every app is built

@@ -159,3 +159,13 @@ one of these is set up, issues have to be added to the board by hand.
   ```
 
   Pick this over the built-in only if you want the automation reviewable in git.
+
+## Bundle apps
+
+The suite apps that ship inside the launcher's release (Agents, Browser, Vault and the rest) are
+registered too, with `"kind": "bundle"` and `"bundledIn": "midnite-launcher"`. They have no
+release, installer or `version.json` of their own (the launcher installs them from
+`catalog.json`), so a bundle entry has only an id, name, tagline and source, and needs steps 3
+and 4 (the label and the issue-form option) and nothing else. The registry entry is what lets
+[`issue-app-label.yml`](../.github/workflows/issue-app-label.yml) label an issue filed from that
+app instead of sending it to `needs-triage`.
