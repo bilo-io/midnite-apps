@@ -13,6 +13,18 @@ body:
       options:
         - midnite-studio
         - midnite-launcher
+        - midnite-agents
+        - midnite-browser
+        - midnite-capture
+        - midnite-cleaner
+        - midnite-coder
+        - midnite-creator
+        - midnite-gamer
+        - midnite-media
+        - midnite-mind
+        - midnite-money
+        - midnite-monitor
+        - midnite-vault
         - Something else / not sure
     validations:
       required: true
