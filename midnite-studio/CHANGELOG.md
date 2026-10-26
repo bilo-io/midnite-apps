@@ -12,6 +12,29 @@ publishes a `midnite-studio/vX.Y.Z` tag here.
 
 Pre-release. Nothing has shipped publicly yet — the first tagged build will appear here.
 
+## [0.0.5] - 2026-10-26
+
+### Added
+- **Midnite Vanguard** (Phase 120): Antivirus and agentic self-defense app and feature suite. Includes a tamper-evident findings ledger, bundle and repo integrity verification, process and persistence sensors, network egress and malware sensors, automated containment and quarantine, and rogue agent detection. Vanguard is now live as an enabled suite app tile in Midnite Apps launcher.
+- **Agents Security Hardening** (Phase 121): Comprehensive protection against prompt injection and unauthorized execution. Includes untrusted content tagging, tool-call policy enforcement with chat review gating, CLI policy hook, MCP server trust pinned by SHA-256 hash, prompt secret leakage scrubbing, confined agent sessions with OS isolation, execution rate limits and circuit breakers, durable append-only agent audit trail, package install verification, and key/model residency controls.
+- **Vault Security Hardening** (Phase 118): Tamper detection and memory hygiene for secret zeroing, secret scanning across repositories and clipboard history, zero-trace reveal and copy, password-protected encrypted vault export and import, auto-lock timeouts, detailed security audit log, and breach checking.
+- **Browser Security** (Phase 117): Chromium floor and isolation with single-session policy, origin permission prompts remembered per site, security verdicts (TLS status, mixed content, vulnerable libraries, lookalike domains), quarantined downloads, tracker and fingerprinting protection, credential-phishing detection, and page-to-agent boundary defense.
+- **Report an Issue**: Dedicated `@midnite/feature-report` dialog wired across all suite apps (Gamer, Media, Mind, Money, Monitor, Vault, Agents, Browser, Capture, Cleaner, Coder, Creator), standardizing issue creation and diagnostics copying.
+- **Custom Loops & Management**: Create and configure custom loops with a `+` tab, "Start from" template picker, inline edit mode, and per-loop color coding. Routine approvals moved to the run group with policy prompt configuration, and loops confirmation modal now overlays directly within the loops panel.
+- **Visuals & Audio Experience**: 3D Jarvis volumetric spherical orb companion visualizer with time-of-day greetings and status summaries, 5-layer 3D fractal & sacred-geometry visualizer across all audio players, thread width display modes (default / wider / full) in chat threads, and 3D knowledge graph styling with Zen mode.
+
+### Changed
+- Consolidated CI pipelines: folded gate-locale into gate-native, rebalanced Playwright e2e runs into 4 shards, and consolidated node gates.
+- Updated dock alignment toggle icons to `react-icons/tb` (`TbBoxAlign`).
+- Commit highlight tiers span the last hour instead of 30 minutes.
+
+### Fixed
+- Graph commit diff stats now accurately match per-file numstats.
+- Companion orb visualizer glow is no longer clipped, with brighter core rendering.
+- Circlepack layout in knowledge visualization no longer crashes when encountering empty node identifiers.
+- Delete confirmation dialog for custom loops now appears reliably.
+- Addressed security audit advisories with DOMPurify 3.4.17 bump and transitive Next.js advisory suppressions.
+
 ## [0.0.4] - 2026-10-21
 
 ### Added
@@ -73,3 +96,4 @@ Covers everything since 0.0.1; the 0.0.2 test release shipped without notes.
 [0.0.1]: https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.1
 [0.0.3]: https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.3
 [0.0.4]: https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.4
+[0.0.5]: https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.5
