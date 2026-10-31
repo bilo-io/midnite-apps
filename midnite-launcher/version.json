@@ -1,8 +1,8 @@
 {
   "app": "midnite-launcher",
   "channel": "stable",
-  "version": "0.0.5",
-  "releasedAt": "2026-10-26T20:41:25Z",
-  "notesUrl": "https://github.com/bilo-io/midnite-apps/releases/tag/midnite-launcher/v0.0.5",
-  "sha256": "dd7ce88a13b5cdbd4691d7ec9497a0743f60724c89956e3340ea7eeb8a8485ef"
+  "version": "0.0.6",
+  "releasedAt": "2026-10-31T13:32:52Z",
+  "notesUrl": "https://github.com/bilo-io/midnite-apps/releases/tag/midnite-launcher/v0.0.6",
+  "sha256": "9d7df1f505d55f7f2ba3b945820d2e58310bc8f1ca0abf778066a0f510fd4e9c"
 }
