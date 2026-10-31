@@ -1,8 +1,8 @@
 {
   "app": "midnite-studio",
   "channel": "stable",
-  "version": "0.0.5",
-  "releasedAt": "2026-10-26T20:38:30Z",
-  "notesUrl": "https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.5",
-  "sha256": "cd3cc1adafcc20c450336c9f06413cc5c5ef9cf31c20e1a7638f21c87aecee63"
+  "version": "0.0.6",
+  "releasedAt": "2026-10-31T13:30:22Z",
+  "notesUrl": "https://github.com/bilo-io/midnite-apps/releases/tag/midnite-studio/v0.0.6",
+  "sha256": "295ec459354c1f1b88c28ed426b9c5454919618d99c61e10198090976b04f30e"
 }
